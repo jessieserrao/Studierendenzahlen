@@ -1,0 +1,487 @@
+[
+    {
+    "semester": "Sommersemester 2010",
+    "studierende": 8713,
+    "fakultaeten": [
+        { 
+            "name": "GuK",
+            "anzahlStud": 3467 
+        },
+        {
+            "name": "SoWi",
+            "anzahlStud": 3024
+        },
+        {
+            "name": "Huwi",
+            "anzahlStud": 1626
+        },
+        {
+            "name": "WIAI",
+            "anzahlStud": 576
+        },
+        {
+            "name": "keine Zuordnung",
+            "anzahlStud": 20
+        }
+    ]
+    },
+
+    {
+        "semester": "Wintersemester 2010/11",
+        "studierende": 10156,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 3837 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 3589
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2054
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 655
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 21
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2011",
+        "studierende": 10388,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 3810 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 3740
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2054
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 677
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 107
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2011/12",
+        "studierende": 12393,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4241 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4905
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2461
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 772
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 14
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2012",
+        "studierende": 12258,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4183 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4932
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2367
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 765
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 11
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2012/13",
+        "studierende": 12834,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4291 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5319
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2373
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 843
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 8
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2013",
+        "studierende": 12267,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4091 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5044
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2242
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 884
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 6
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2013/14",
+        "studierende": 13470,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4505 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5456
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2502
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 999
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 8
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemeter 2014",
+        "studierende": 13169,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4421 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5267
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2384
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1088
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 9
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2014/15",
+        "studierende": 13466,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4497 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5346
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2420
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1194
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 9
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2015",
+        "studierende": 12985,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4373 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5070
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2266
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1266
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 10
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2015/16",
+        "studierende": 13378,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4435 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5233
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2379
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1319
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 12
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2016",
+        "studierende": 12847,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4241 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 5006
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2209
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1381
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 10
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2016/17",
+        "studierende": 13277,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4333 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4980
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2419
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1535
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 10
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2017",
+        "studierende": 12764,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4080 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4728
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2295
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1652
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 9
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2017/18",
+        "studierende": 13361,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4596 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4689
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2359
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1704
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 13
+            }
+        ]
+    },
+
+    {
+        "semester": "Sommersemester 2018",
+        "studierende": 12776,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4376 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4375
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2202
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1814
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 9
+            }
+        ]
+    },
+
+    {
+        "semester": "Wintersemester 2018/19",
+        "studierende": 13119,
+        "fakultaeten": [
+            { 
+                "name": "GuK",
+                "anzahlStud": 4467 
+            },
+            {
+                "name": "SoWi",
+                "anzahlStud": 4374
+            },
+            {
+                "name": "Huwi",
+                "anzahlStud": 2352
+            },
+            {
+                "name": "WIAI",
+                "anzahlStud": 1918
+            },
+            {
+                "name": "keine Zuordnung",
+                "anzahlStud": 8
+            }
+        ]
+    }
+]
