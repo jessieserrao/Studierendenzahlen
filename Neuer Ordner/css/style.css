@@ -1,0 +1,30 @@
+#load {
+    width: 35px;
+    margin: 100px auto;
+}
+
+#info {
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+    background-color: rgb(201, 52, 52);
+    color: white;
+    text-align: center;
+    margin: auto;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+td, th {
+    padding: 10px;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+#donut {
+    height: auto;
+}
