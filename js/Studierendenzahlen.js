@@ -1,1 +1,0 @@
-// TODO here our Javascript implementation for the Studierendenzahlen page.

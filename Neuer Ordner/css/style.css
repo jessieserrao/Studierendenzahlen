@@ -10,9 +10,14 @@
     background-color: rgb(201, 52, 52);
     color: white;
     text-align: center;
-    margin: auto;
+    margin-left: 700px;
+    margin-top: -400px;
 }
 
+#container {
+    border: 2px solid black;
+    height: 600px;
+}
 table {
     text-align: center;
     border-collapse: collapse;

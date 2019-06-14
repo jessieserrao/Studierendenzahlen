@@ -1,3 +1,4 @@
+
 var random = (Math.floor(Math.random() * 3) + 1) * 1000;
 setTimeout(begin, random);
 
@@ -30,6 +31,7 @@ function displayData() {
         displayError();
     } else {
         windowWidth = $(window).width();
+        $("body").append("<div id=\"container>\"></div>");
         // adding the left diagram
         $("body").append("<div id=\"left_diagram\"><svg><g></g></svg></div>");
         d3.select("svg")
@@ -68,7 +70,7 @@ function displayMoreInformation() {
     // update the visuals of the selected bar
     if(selectedRect == null) {
         selectedRect = this;
-        $("#info").attr("id", "right_diagram")
+        $("#info").attr("id", "right_diagram");
         $("#right_diagram p").remove();
     } else {
         $("#right_diagram").empty();
@@ -84,13 +86,53 @@ function displayMoreInformation() {
 
     var n = $(selectedRect).prevAll().length;
     var fakultaeten = data[n].fakultaeten;
-    var colors = ['green', 'yellow', 'blue', 'grey', 'red'];
 
-    // creating the donut chart
-            // TODO
-            // ...
-            // ...
-    
+    //New Variables for Donut Chart
+    // set the dimensions and margins of the graph
+    var width = 450;
+    var height = 450;
+    var margin = 40;
+
+    // The radius of the pieplot is half the width or half the height (smallest one). I substract a bit of margin.
+    var radius = Math.min(width, height) / 2 - margin;
+
+    // append the svg object to the div called 'right_diagram'
+    var svg = d3.select("#right_diagram")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    // set the color scale
+    var color = d3.scaleOrdinal()
+        .domain(fakultaeten)
+        .range(["green", "yellow", "blue", "grey", "red"]);
+
+    // Compute the position of each group on the pie:
+    var pie = d3.pie().value(function (d) {
+        return d.value;
+    });
+    var data_ready = pie(d3.entries(fakultaeten));
+
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    svg
+        .selectAll('whatever')
+        .data(data_ready)
+        .enter()
+        .append('path')
+        .attr('d', d3.arc()
+            .innerRadius(100)         // This is the size of the donut hole
+            .outerRadius(radius)
+        )
+        .attr('fill', function (d) {
+            return (color(d.data.key))
+        })
+        .attr("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.7);
+
+
+
     // creating the table
     $("table").append("<tr id=\"firstRow\"></tr>");
     $("table").append("<tr id=\"secondRow\"></tr>");
