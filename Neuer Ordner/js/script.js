@@ -87,45 +87,27 @@ function displayMoreInformation() {
     var n = $(selectedRect).prevAll().length;
     var fakultaeten = data[n].fakultaeten;
 
-    //New Variables for Donut Chart
-    // set the dimensions and margins of the graph
-    var width = 450;
-    var height = 450;
-    var margin = 40;
-
-    // The radius of the pieplot is half the width or half the height (smallest one). I substract a bit of margin.
-    var radius = Math.min(width, height) / 2 - margin;
-
+    const colors = ['#00457D', '#FFD300', '#97BF0D', '#E6444F', '#878783'];
+    let pieData = d3.pie();
+    console.log(pieData(data));
     // append the svg object to the div called 'right_diagram'
-    var svg = d3.select("#right_diagram")
-        .attr("width", width)
-        .attr("height", height)
+    d3.select("#right_diagram")
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-    // set the color scale
-    var color = d3.scaleOrdinal()
-        .domain(fakultaeten)
-        .range(["green", "yellow", "blue", "grey", "red"]);
-
-    // Compute the position of each group on the pie:
-    var pie = d3.pie().value(function (d) {
-        return d.value;
-    });
-    var data_ready = pie(d3.entries(fakultaeten));
+        .attr("transform", "translate(70,70)");
 
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
     svg
-        .selectAll('whatever')
-        .data(data_ready)
+        .select("g")
+        .selectAll('path')
+        .data(pieData(data)) // aqui insere a data
         .enter()
         .append('path')
         .attr('d', d3.arc()
-            .innerRadius(100)         // This is the size of the donut hole
-            .outerRadius(radius)
+            .innerRadius(0)         // This is the size of the donut hole
+            .outerRadius(70)
         )
-        .attr('fill', function (d) {
-            return (color(d.data.key))
+        .attr('fill', function (d, i) {
+            return (colors[i]);
         })
         .attr("stroke", "black")
         .style("stroke-width", "2px")

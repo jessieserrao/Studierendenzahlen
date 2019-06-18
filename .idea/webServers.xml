@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="310b2e22-a6d4-4dbc-8965-1705d2cd07e9" name="XAMPP" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="$USER_HOME$/.bitnami/stackman/machines/xampp/volumes/root/apache2/htdocs" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
