@@ -70,10 +70,9 @@ function displayMoreInformation() {
     // update the visuals of the selected bar
     if(selectedRect == null) {
         selectedRect = this;
-        $("#info").attr("id", "right_diagram");
-        $("#right_diagram p").remove();
+        $("#info").remove();
     } else {
-        $("#right_diagram").empty();
+        $("body").append("<div id=\"right_diagram\"> </div>");
     }
     $(selectedRect).bind('mouseenter mouseleave');
     d3.select(selectedRect).attr("style", "fill: rgb(21, 63, 119);");
@@ -82,6 +81,7 @@ function displayMoreInformation() {
     selectedRect = this;
 
     // displays more information on the right diagram
+
     $("#right_diagram").append("<svg id=\"donut\"></svg><table></table>");
 
     var n = $(selectedRect).prevAll().length;
@@ -89,21 +89,21 @@ function displayMoreInformation() {
 
     const colors = ['#00457D', '#FFD300', '#97BF0D', '#E6444F', '#878783'];
     let pieData = d3.pie();
-    console.log(pieData(data));
+    console.log(pieData(fakultaeten));
     // append the svg object to the div called 'right_diagram'
-    d3.select("#right_diagram")
+    d3.select("#donut").select("svg")
         .append("g")
         .attr("transform", "translate(70,70)");
 
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-    svg
+    d3.select("svg")
         .select("g")
         .selectAll('path')
-        .data(pieData(data)) // aqui insere a data
+        .data(pieData(fakultaeten)) // is the data right?
         .enter()
         .append('path')
         .attr('d', d3.arc()
-            .innerRadius(0)         // This is the size of the donut hole
+            .innerRadius(50)         // This is the size of the donut hole
             .outerRadius(70)
         )
         .attr('fill', function (d, i) {
@@ -112,7 +112,6 @@ function displayMoreInformation() {
         .attr("stroke", "black")
         .style("stroke-width", "2px")
         .style("opacity", 0.7);
-
 
 
     // creating the table
