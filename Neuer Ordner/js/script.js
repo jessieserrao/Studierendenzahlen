@@ -8,16 +8,18 @@ var windowWidth;
 var h;
 var max_stud;
 var selectedRect;
+var windowHeight;
 
 function begin() {
     $("#load").remove();
+    windowHeight = $(window).height();
 
     $.getJSON("data/studzahlen.json",
         function (d) {
             data = d;
             max_stud = d3.max(data.map(getStudierende));
             width = (0.6 * $(window).width()) / data.length;
-            h = d3.scaleLinear().domain([0, max_stud]).range([0, (0.7 * $(window).height())]);
+            h = d3.scaleLinear().domain([0, max_stud]).range([0, (0.8 * windowHeight)]);
             displayData();
         }
     )
@@ -31,7 +33,6 @@ function displayData() {
         displayError();
     } else {
         windowWidth = $(window).width();
-        $("body").append("<div id=\"container>\"></div>");
         // adding the left diagram
         $("body").append("<div id=\"left_diagram\"><svg><g></g></svg></div>");
         d3.select("svg")
@@ -70,10 +71,10 @@ function displayMoreInformation() {
     // update the visuals of the selected bar
     if(selectedRect == null) {
         selectedRect = this;
-        $("#info").remove();
-        $("body").append("<div id=\"right_diagram\"> </div>");
+        $("#info").attr("id", "right_diagram");
+        $("#right_diagram p").remove();
     } else {
-
+        $("#right_diagram").empty();
     }
     $(selectedRect).bind('mouseenter mouseleave');
     d3.select(selectedRect).attr("style", "fill: rgb(21, 63, 119);");
@@ -82,12 +83,39 @@ function displayMoreInformation() {
     selectedRect = this;
 
     // displays more information on the right diagram
+
     $("#right_diagram").append("<svg id=\"donut\"></svg><table></table>");
 
     var n = $(selectedRect).prevAll().length;
     var fakultaeten = data[n].fakultaeten;
 
-    const colors = ['#00457D', '#FFD300', '#97BF0D', '#E6444F', '#878783'];
+    const colors = ['#97BF0D', '#FFD300', '#00457D', '#878783', '#E6444F'];
+    let pieData = d3.pie();
+    // append the svg object to the div called 'right_diagram'
+    var radius = 0.95 * ((windowWidth - width * data.length) / 2);
+    d3.select("#donut")
+        .attr("width", 2 * radius + 30)
+        .attr("height", 2*radius + 30)
+        .append("g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
+
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    let fak = fakultaeten.map(function (f) { return f.anzahlStud; });
+    console.log(fak);
+    d3.select("#donut")
+        .select("g")
+        .selectAll('path')
+        .data(pieData(fakultaeten.map(function (f) { return f.anzahlStud; }))) // is the data right?
+        .enter()
+        .append('path')
+        .attr('d', d3.arc()
+            .innerRadius(0.8*radius)         // This is the size of the donut hole
+            .outerRadius(radius)
+        )
+        .attr('fill', function (d, i) {
+            return (colors[i]);
+        });
+
 
     // creating the table
     $("table").append("<tr id=\"firstRow\"></tr>");
@@ -98,32 +126,6 @@ function displayMoreInformation() {
         $("#f" + i).css("background-color", colors[i]);
         $("#secondRow").append("<td>" + f.anzahlStud + "</td>");
     }
-
-    let pieData = d3.pie();
-    console.log(pieData(fakultaeten));
-    // append the svg object to the div called 'right_diagram'
-    d3.select("svg")
-        .append("g")
-        .attr("transform", "translate(70,70)");
-
-    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-    d3.select("svg")
-        .select("g")
-        .selectAll('path')
-        .data(pieData(fakultaeten)) // is the data right?
-        .enter()
-        .append('path')
-        .attr('d', d3.arc()
-            .innerRadius(50)         // This is the size of the donut hole
-            .outerRadius(70)
-        )
-        .attr('fill', function (d, i) {
-            return (colors[i]);
-        })
-        .attr("stroke", "black")
-        .style("stroke-width", "2px")
-        .style("opacity", 0.7);
-
 
 }
 
