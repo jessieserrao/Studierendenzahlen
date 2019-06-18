@@ -71,8 +71,9 @@ function displayMoreInformation() {
     if(selectedRect == null) {
         selectedRect = this;
         $("#info").remove();
-    } else {
         $("body").append("<div id=\"right_diagram\"> </div>");
+    } else {
+
     }
     $(selectedRect).bind('mouseenter mouseleave');
     d3.select(selectedRect).attr("style", "fill: rgb(21, 63, 119);");
@@ -81,17 +82,27 @@ function displayMoreInformation() {
     selectedRect = this;
 
     // displays more information on the right diagram
-
     $("#right_diagram").append("<svg id=\"donut\"></svg><table></table>");
 
     var n = $(selectedRect).prevAll().length;
     var fakultaeten = data[n].fakultaeten;
 
     const colors = ['#00457D', '#FFD300', '#97BF0D', '#E6444F', '#878783'];
+
+    // creating the table
+    $("table").append("<tr id=\"firstRow\"></tr>");
+    $("table").append("<tr id=\"secondRow\"></tr>");
+    for(i = 0; i < fakultaeten.length; i++) {
+        var f = fakultaeten[i];
+        $("#firstRow").append("<th id=\"f" + i + "\">" + f.name + "</th>");
+        $("#f" + i).css("background-color", colors[i]);
+        $("#secondRow").append("<td>" + f.anzahlStud + "</td>");
+    }
+
     let pieData = d3.pie();
     console.log(pieData(fakultaeten));
     // append the svg object to the div called 'right_diagram'
-    d3.select("#donut").select("svg")
+    d3.select("svg")
         .append("g")
         .attr("transform", "translate(70,70)");
 
@@ -113,16 +124,6 @@ function displayMoreInformation() {
         .style("stroke-width", "2px")
         .style("opacity", 0.7);
 
-
-    // creating the table
-    $("table").append("<tr id=\"firstRow\"></tr>");
-    $("table").append("<tr id=\"secondRow\"></tr>");
-    for(i = 0; i < fakultaeten.length; i++) {
-        var f = fakultaeten[i];
-        $("#firstRow").append("<th id=\"f" + i + "\">" + f.name + "</th>");
-        $("#f" + i).css("background-color", colors[i]);
-        $("#secondRow").append("<td>" + f.anzahlStud + "</td>");
-    }
 
 }
 
