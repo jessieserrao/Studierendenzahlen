@@ -3,24 +3,30 @@ var random = (Math.floor(Math.random() * 3) + 1) * 1000;
 setTimeout(begin, random);
 
 var data;
-var width;
-var windowWidth;
-var h;
-var max_stud;
-var selectedRect;
+var barWidth;
 var windowHeight;
+var windowWidth;
+var heightScale;
+var maxStud;
+var selectedRect;
+
+const colors = ['#97BF0D', '#FFD300', '#00457D', '#878783', '#E6444F'];
 
 function begin() {
     $("#load").remove();
-    windowHeight = $(window).height();
 
     $.getJSON("data/studzahlen.json",
         function (d) {
             data = d;
-            max_stud = d3.max(data.map(getStudierende));
-            width = (0.6 * $(window).width()) / data.length;
-            h = d3.scaleLinear().domain([0, max_stud]).range([0, (0.8 * windowHeight)]);
-            displayData();
+            assignVariables();
+            displayBarDiagram();
+            $("body").append("<div id=\"info\"><p>Bitte wählen Sie einen Balken aus!</p></div>");    // adding the information on the right 
+
+            // ist das fenster zu klein, werden die Diagramme untereinander angeordnet
+            if(windowWidth > 800) {
+                $("#info").css("margin-left", windowWidth*0.75).css("margin-top", windowHeight / 2.5);
+                $("#left_diagram").css("float", "left");
+            }
         }
     )
     .fail(function() {
@@ -28,94 +34,90 @@ function begin() {
     });
 }
 
-function displayData() {
-    if(data == null) {
-        displayError();
-    } else {
-        windowWidth = $(window).width();
-        // adding the left diagram
-        $("body").append("<div id=\"left_diagram\"><svg><g></g></svg></div>");
-        d3.select("svg")
-          .attr("width", windowWidth * 0.6).attr("height", h(max_stud) + 50);
-        
-        d3.select("g")
-          .selectAll("rect").data(data).enter().append("rect")
-          .attr("width", (function(d) { return width - 3;}))
-          .attr("height", (function(d) { return h(d.studierende);}))
-          .attr("x", (function(d) { return data.indexOf(d) * width;}))
-          .attr("y", function(d) { return h(max_stud) - h(d.studierende);})
-          .attr("style", function(d) { return "fill: rgb(21, 63, 119);"})
-          .attr("class", "balken");
-    
-        $("svg").append("<text>Semester</text>");
-        d3.select("text")
-          .attr("text-anchor", "middle")
-          .attr("x", width/2)
-          .attr("y", h(max_stud) + 20);
+function assignVariables() {
+    windowHeight = $(window).height();
+    windowWidth = $(window).width();
+    maxStud = d3.max(data.map(getStudierende));
+    barWidth = (0.6 * windowWidth) / data.length;
+    heightScale = d3.scaleLinear().domain([0, maxStud]).range([0, (0.8 * windowHeight)]);
+}
 
-        // hover functionality for the bars on the left
-        $("rect").hover(onRectHoverIn, onRectHoverOut);
+function displayBarDiagram() {
+    $("body").append("<div id=\"left_diagram\"><svg><g></g></svg></div>");
 
-        // click functionality for the bars on the left
-        $("rect").click(displayMoreInformation);
+    d3.select("svg")
+      .attr("width", windowWidth * 0.65).attr("height", heightScale(maxStud) + 50);
 
-        // adding the information on the right
-        $("body").append("<div id=\"info\"><p>Bitte wählen Sie einen Balken aus!</p></div>");
+    // creating the bars
+    d3.select("g")
+      .attr("transform", "translate(30,0)")
+      .selectAll("rect").data(data).enter().append("rect")
+      .attr("width", (barWidth - 3))
+      .attr("height", (function(d) { return heightScale(d.studierende);}))
+      .attr("x", (function(d, i) { return i * barWidth;}))
+      .attr("y", function(d) { return heightScale(maxStud) - heightScale(d.studierende);})
+      .attr("style", "fill: rgb(21, 63, 119);")
+      .attr("class", "balken");
 
-//    $("#select").css("width", 0.4* $(window).width());
-    
-    }
+    // label for the axes
+    d3.select("svg").append("text").attr("x", barWidth*data.length / 2).attr("y", heightScale(maxStud) + 25).attr("font-size", 23).attr("fill", "black").text("Semester");
+    d3.select("svg").append("text").attr("x", 5).attr("y", heightScale(maxStud)/2).attr("font-size", 23).attr("text-anchor", "middle")
+      .attr("fill", "black").attr("transform", "rotate(90, 10," + heightScale(maxStud)/2 + ")").text("Studierendenzahlen");
+
+    // hover functionality
+    $("rect").hover(function() { d3.select(this).attr("style", "fill: rgb(209, 43, 43);"); },               // handlerIn
+                      function() { d3.select(this).attr("style", "fill: rgb(21, 63, 119);"); });              // handlerOut
+                      
+    // click functionality
+    $("rect").click(displayMoreInformation);
 }
 
 function displayMoreInformation() {
     // update the visuals of the selected bar
     if(selectedRect == null) {
-        selectedRect = this;
         $("#info").attr("id", "right_diagram");
         $("#right_diagram p").remove();
+        d3.select("#left_diagram").select("g").append("text").attr("id", "anzahlStud");
     } else {
         $("#right_diagram").empty();
+        $(selectedRect).bind('mouseenter mouseleave');
+        d3.select(selectedRect).attr("style", "fill: rgb(21, 63, 119);");
     }
-    $(selectedRect).bind('mouseenter mouseleave');
-    d3.select(selectedRect).attr("style", "fill: rgb(21, 63, 119);");
     $(this).unbind('mouseenter mouseleave');
     d3.select(this).attr("style", "fill: rgb(209, 43, 43);"); 
     selectedRect = this;
 
-    // displays more information on the right diagram
+    var n = $(selectedRect).prevAll().length;       // index of the selected Rectangle
+    var fakultaeten = data[n].fakultaeten;          // array with the fakultaeten of the selected Rectangle
 
+    // creating donut diagram and table
     $("#right_diagram").append("<svg id=\"donut\"></svg><table></table>");
 
-    var n = $(selectedRect).prevAll().length;
-    var fakultaeten = data[n].fakultaeten;
-
-    const colors = ['#97BF0D', '#FFD300', '#00457D', '#878783', '#E6444F'];
+    // creating the donut diagram
     let pieData = d3.pie();
-    // append the svg object to the div called 'right_diagram'
-    var radius = 0.95 * ((windowWidth - width * data.length) / 2);
-    d3.select("#donut")
-        .attr("width", 2 * radius + 30)
-        .attr("height", 2*radius + 30)
-        .append("g")
-        .attr("transform", "translate(" + radius + "," + radius + ")");
+    let radius = 0.85 * (Math.min((windowWidth *0.35), windowHeight*0.6) / 2);       // the radius of the donut diagram, depending on the remaining space
 
-    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-    let fak = fakultaeten.map(function (f) { return f.anzahlStud; });
-    console.log(fak);
+    d3.select("#donut")
+        .attr("width", windowWidth * 0.35)
+        .attr("height", windowHeight * 0.6)
+        .append("g")
+        .attr("transform", "translate(" + (radius + 3) + "," + (radius + 3) + ")");
+
     d3.select("#donut")
         .select("g")
         .selectAll('path')
-        .data(pieData(fakultaeten.map(function (f) { return f.anzahlStud; }))) // is the data right?
+        .data(pieData(fakultaeten.map(function (f) { return f.anzahlStud; })))      // the argument of pieData is an array with the amount of students per faculty
         .enter()
         .append('path')
         .attr('d', d3.arc()
-            .innerRadius(0.8*radius)         // This is the size of the donut hole
-            .outerRadius(radius)
-        )
-        .attr('fill', function (d, i) {
-            return (colors[i]);
-        });
+            .innerRadius(0.8*radius)         // the size of the donut hole
+            .outerRadius(radius))
+        .attr('fill', function (d, i) { return (colors[i]);})
+        .attr("stroke", "black")
+        .attr("stroke-width", "2px");
 
+    d3.select("#donut").select("g").append("text").attr("text-anchor", "middle").attr("font-size", 20).text(selectedRect.__data__.semester); // semester-label in the middle of the donut 
+    d3.select("#anzahlStud").attr("x", n*barWidth).attr("y", heightScale(maxStud) - 4).attr("font-size", 12).attr("fill", "white").text(selectedRect.__data__.studierende); // amount of students at selected bar
 
     // creating the table
     $("table").append("<tr id=\"firstRow\"></tr>");
@@ -127,15 +129,13 @@ function displayMoreInformation() {
         $("#secondRow").append("<td>" + f.anzahlStud + "</td>");
     }
 
+    // ist das fenster zu klein, werden die Diagramme untereinander angeordnet
+    if(windowWidth > 800) {
+        $("th, td").css("height", 0.06 * windowHeight).css("max-width", 0.3*windowWidth / fakultaeten.length);
+        $("#right_diagram").css("margin-left", windowWidth*0.65).css("margin-top", 0);
+    }
 }
 
-function onRectHoverIn() {
-    d3.select(this).attr("style", "fill: rgb(209, 43, 43);");
-}
-
-function onRectHoverOut() {    
-    d3.select(this).attr("style", "fill: rgb(21, 63, 119);");
-}
 
 function displayError() {
     $("body").append("<p>Daten konnten nicht geladen werden</p>");
