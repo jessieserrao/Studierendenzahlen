@@ -13,10 +13,6 @@
     margin: auto;
 }
 
-#container {
-    border: 2px solid black;
-    height: 600px;
-}
 
 table {
     text-align: center;
@@ -30,6 +26,10 @@ td, th {
     border: 1px solid black;
 }
 
-#donut {
-    height: auto;
+body{
+    border: 1px solid black;
+    height: 90%;
+    padding: 40px;
+    margin-top:  10px;
+    margin-bottom: 40px;
 }

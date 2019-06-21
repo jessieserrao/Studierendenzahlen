@@ -20,7 +20,7 @@ function begin() {
             data = d;
             assignVariables();
             displayBarDiagram();
-            $("body").append("<div id=\"info\"><p>Bitte wählen Sie einen Balken aus!</p></div>");    // adding the information on the right 
+            $("body").append("<div id=\"info\"><p>Bitte wählen Sie einen Balken aus!</p></div>");    // adding the information on the right
 
             // ist das fenster zu klein, werden die Diagramme untereinander angeordnet
             if(windowWidth > 800) {
@@ -44,7 +44,7 @@ function assignVariables() {
 
 function displayBarDiagram() {
     $("body").append("<div id=\"left_diagram\"><svg><g></g></svg></div>");
-
+    
     d3.select("svg")
       .attr("width", windowWidth * 0.65).attr("height", heightScale(maxStud) + 50);
 
@@ -95,7 +95,7 @@ function displayMoreInformation() {
 
     // creating the donut diagram
     let pieData = d3.pie();
-    let radius = 0.85 * (Math.min((windowWidth *0.35), windowHeight*0.6) / 2);       // the radius of the donut diagram, depending on the remaining space
+    let radius = 0.75 * (Math.min((windowWidth *0.35), windowHeight*0.6) / 2);       // the radius of the donut diagram, depending on the remaining space
 
     d3.select("#donut")
         .attr("width", windowWidth * 0.35)
